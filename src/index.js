@@ -3,15 +3,24 @@ import ReactDOM from "react-dom";
 
 import "./index.css";
 import App from "./App";
+import { applyMiddleware, createStore } from "redux";
+import reducer from "./reducers";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+import { Provider } from "react-redux";
 
-const { worker } = require('./mocks/browser');
+const { worker } = require("./mocks/browser");
 worker.start();
 
 const rootElement = document.getElementById("root");
 
+const store = createStore(reducer, applyMiddleware(logger, thunk));
+
 ReactDOM.render(
-    <App />, 
-    rootElement
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  rootElement
 );
 
 //Task List:
