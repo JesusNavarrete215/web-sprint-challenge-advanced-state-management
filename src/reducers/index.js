@@ -3,13 +3,14 @@ import {
   FETCH_SUCCESS,
   FETCH_FAIL,
   ADD_SMURF,
-  ADD_VALUE,
+  ERROR_MESSAGE,
 } from "../actions/index";
 
 export const initialState = {
   smurf: [],
-  isLoading: true,
+  isLoading: false,
   error: "",
+  errorMessage: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,7 +19,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         smurf: [],
-        isloading: true,
+        isLoading: true,
         error: "",
       };
     case FETCH_SUCCESS:
@@ -44,11 +45,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         smurf: [...state.smurf, newSmurf],
       };
-    case ADD_VALUE:
+    case ERROR_MESSAGE:
       return {
         ...state,
-        error: action.payload,
+        errorMessage: state.errorMessage,
       };
+
     default:
       return state;
   }
